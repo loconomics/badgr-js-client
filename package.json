@@ -1,5 +1,5 @@
 {
-  "name": "badgr",
+  "name": "@loconomics/badgr",
   "version": "0.1.0",
   "description": "An interface to the Badgr.io API",
   "main": "lib/index.js",
