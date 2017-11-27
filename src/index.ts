@@ -1,25 +1,20 @@
 import "isomorphic-fetch"
 
-interface HttpMethod {
-  readonly method: string
+const enum HttpMethod {
+  Get = "GET",
+  Post = "POST",
+  Put = "PUT",
+  Delete = "DELETE"
 }
-
-const GET = <HttpMethod>{ method: "GET" }
-
-const POST = <HttpMethod>{ method: "POST" }
-
-const PUT = <HttpMethod>{ method: "PUT" }
-
-const DELETE = <HttpMethod>{ method: "DELETE" }
 
 export default class {
 
-  private async fetch(endpoint: string, args: object, method: HttpMethod = GET) {
+  private async fetch(endpoint: string, args: object, method: HttpMethod = HttpMethod.Get) {
     const r = await fetch(
       endpoint,
       Object.assign(
         {
-          ...method
+          method,
         }, args
       )
     )
@@ -30,19 +25,19 @@ export default class {
   }
 
   private async get(endpoint: string, args: object) {
-    return this.fetch(endpoint, args, GET)
+    return this.fetch(endpoint, args, HttpMethod.Get)
   }
 
   private async post(endpoint: string, args: object) {
-    return this.fetch(endpoint, args, POST)
+    return this.fetch(endpoint, args, HttpMethod.Post)
   }
 
   private async put(endpoint: string, args: object) {
-    return this.fetch(endpoint, args, PUT)
+    return this.fetch(endpoint, args, HttpMethod.Put)
   }
 
   private async delete(endpoint: string, args: object) {
-    return this.fetch(endpoint, args, DELETE)
+    return this.fetch(endpoint, args, HttpMethod.Delete)
   }
 
   constructor(readonly apiBase = "https://api.badgr.io/v2") { }
