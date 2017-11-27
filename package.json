@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "An interface to the Badgr.io API",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "https://github.com/loconomics/badgr",
   "author": "Loconomics, Inc.",
   "license": "MIT",
