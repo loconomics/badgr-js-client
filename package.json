@@ -12,6 +12,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "doc": "typedoc --out docs/ src/ --module badgr",
     "prepublish": "npm run build",
     "pretest": "npm run build",
     "test": "jasmine",
@@ -28,6 +29,7 @@
     "babel-register": "^6.26.0",
     "jasmine": "^2.8.0",
     "jasmine-http-server-spy": "^0.3.1",
+    "typedoc": "^0.9.0",
     "typescript": "^2.6.1"
   }
 }
