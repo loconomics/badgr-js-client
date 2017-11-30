@@ -17,8 +17,11 @@ export interface UsernamePassword {
   password: string
 }
 
-async function myFetch(endpoint: string, args: object, method: HttpMethod = HttpMethod.Get) {
-  let fetchArgs = {method, ...args}
+async function myFetch(endpoint: string, args: object, method: HttpMethod = HttpMethod.Get, token?: string) {
+  const headers = new Headers()
+  if(token)
+    headers.append("Authorization", `Token ${token}`)
+  let fetchArgs = {headers, method, ...args}
   debug(`fetch("${endpoint}", ${JSON.stringify(fetchArgs)})`)
   let r = await fetch(endpoint, fetchArgs)
   if(r.ok)
@@ -27,20 +30,20 @@ async function myFetch(endpoint: string, args: object, method: HttpMethod = Http
     throw new Error(r.statusText)
 }
 
-async function get(endpoint: string, args: object) {
-  return myFetch(endpoint, args, HttpMethod.Get)
+async function get(endpoint: string, args: object, token?: string) {
+  return myFetch(endpoint, args, HttpMethod.Get, token)
 }
 
-async function post(endpoint: string, args: object) {
-  return myFetch(endpoint, args, HttpMethod.Post)
+async function post(endpoint: string, args: object, token?: string) {
+  return myFetch(endpoint, args, HttpMethod.Post, token)
 }
 
-async function put(endpoint: string, args: object) {
-  return myFetch(endpoint, args, HttpMethod.Put)
+async function put(endpoint: string, args: object, token?: string) {
+  return myFetch(endpoint, args, HttpMethod.Put, token)
 }
 
-async function del(endpoint: string, args: object) {
-  return myFetch(endpoint, args, HttpMethod.Delete)
+async function del(endpoint: string, args: object, token?: string) {
+  return myFetch(endpoint, args, HttpMethod.Delete, token)
 }
 
 export default class {
