@@ -46,7 +46,13 @@ async function del(endpoint: string, args: object, token?: string) {
   return myFetch(endpoint, args, HttpMethod.Delete, token)
 }
 
-export default class {
+export class Backpack {
+
+  constructor(readonly client: Client) { }
+
+}
+
+export default class Client {
 
   get apiEndpoint() {
     return `${this.endpoint}/v2`
@@ -56,14 +62,20 @@ export default class {
     return `${this.endpoint}/api-auth/token`
   }
 
-  private token: string;
+  token: string
+
+  readonly backpack: Backpack
 
   constructor(credentials: UsernamePassword, readonly endpoint = "https://api.badgr.io") {
     const credentialsForm = new FormData()
     credentialsForm.append("username", credentials.username)
     credentialsForm.append("password", credentials.password)
+    this.backpack = new Backpack(this)
     post(this.authEndpoint, {body: credentialsForm})
-      .then((token) => this.token = token["token"])
+      .then((r) => {
+        const token = r["token"]
+        this.token = token
+      })
       .catch((e) => { throw e })
   }
 
