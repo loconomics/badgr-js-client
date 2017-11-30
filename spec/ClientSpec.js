@@ -32,7 +32,7 @@ describe("Client", function() {
       setTimeout(() => {
         expect(client.token).toBe(this.token)
         done()
-      }, 100)
+      }, 200)
     })
 
   })
