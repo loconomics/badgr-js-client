@@ -17,7 +17,7 @@ export interface UsernamePassword {
   password: string
 }
 
-async function myFetch(endpoint: string, args: object, method: HttpMethod = HttpMethod.Get, token?: string) {
+async function myFetch(endpoint: string, args: object = {}, method: HttpMethod = HttpMethod.Get, token?: string) {
   const headers = new Headers()
   if(token)
     headers.append("Authorization", `Token ${token}`)
@@ -47,6 +47,15 @@ async function del(endpoint: string, args: object, token?: string) {
 }
 
 export class Backpack {
+
+  get apiEndpoint() {
+    return `${this.client.apiEndpoint}/backpack`
+  }
+
+  get collections() {
+    return get(`${this.apiEndpoint}/collections`, {}, this.client.token)
+      .then((r) => r.result)
+  }
 
   constructor(readonly client: Client) { }
 
