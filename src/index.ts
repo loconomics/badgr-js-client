@@ -41,6 +41,14 @@ export default class {
     return this.fetch(endpoint, args, HttpMethod.Delete)
   }
 
-  constructor(readonly apiBase = "https://api.badgr.io/v2") { }
+  get apiEndpoint() {
+    return `${this.endpoint}/v2`
+  }
+
+  get authEndpoint() {
+    return `${this.endpoint}/api-auth`
+  }
+
+  constructor(readonly endpoint = "https://api.badgr.io/v2") { }
 
 }
