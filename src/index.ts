@@ -1,5 +1,8 @@
 import "es6-promise"
 import "isomorphic-fetch"
+import {debug, setLevel} from "loglevel"
+
+setLevel("DEBUG")
 
 const enum HttpMethod {
   Get = "GET",
@@ -11,7 +14,7 @@ const enum HttpMethod {
 export default class {
 
   private async fetch(endpoint: string, args: object, method: HttpMethod = HttpMethod.Get) {
-    const r = await fetch(
+    let r = await fetch(
       endpoint,
       Object.assign(
         {
@@ -19,9 +22,11 @@ export default class {
         }, args
       )
     )
-    if(r.ok)
-      return r.json()
-    else
+    if(r.ok) {
+      r = await r.json()
+      debug(r)
+      return r
+    } else
       throw new Error(r.statusText)
   }
 
