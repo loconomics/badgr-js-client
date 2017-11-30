@@ -1,3 +1,4 @@
+import FormData = require("form-data")
 import "es6-promise"
 import "isomorphic-fetch"
 import {debug, setLevel} from "loglevel"
@@ -11,21 +12,20 @@ const enum HttpMethod {
   Delete = "DELETE"
 }
 
+export interface UsernamePassword {
+  username: string
+  password: string
+}
+
 export default class {
 
   private async fetch(endpoint: string, args: object, method: HttpMethod = HttpMethod.Get) {
-    let r = await fetch(
-      endpoint,
-      Object.assign(
-        {
-          method,
-        }, args
-      )
-    )
+    let fetchArgs = {method, ...args}
+    debug(`fetch("${endpoint}", ${JSON.stringify(fetchArgs)})`)
+    let r = await fetch(endpoint, fetchArgs)
     if(r.ok) {
-      r = await r.json()
-      debug(r)
-      return r
+      let rv = await r.json()
+      return rv
     } else
       throw new Error(r.statusText)
   }
@@ -51,9 +51,17 @@ export default class {
   }
 
   get authEndpoint() {
-    return `${this.endpoint}/api-auth`
+    return `${this.endpoint}/api-auth/token`
   }
 
-  constructor(readonly endpoint = "https://api.badgr.io/v2") { }
+  private token: string;
+
+  constructor(credentials: UsernamePassword, readonly endpoint = "https://api.badgr.io") {
+    const credentialsForm = new FormData()
+    credentialsForm.append("username", credentials.username)
+    credentialsForm.append("password", credentials.password)
+    this.post(this.authEndpoint, {body: credentialsForm})
+      .then((token) => this.token = token["token"])
+  }
 
 }
