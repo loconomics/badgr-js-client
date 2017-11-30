@@ -2,3 +2,10 @@ language: node_js
 node_js:
 - node
 - lts/*
+deploy:
+  provider: npm
+  email: tools@loconomics.com
+  api_key:
+    secure: dlTmDs09IkTtEoj5N1Q4At8BYjhRL8mZq44mb3jUoDpLRHwoyMK/3SKOS3aWUsJP7S0RC5OldnbQbWSujQivIqhJGlKa2Mha29/Slkr+V7i1rCX3f+vmqmF35Gb8Rs9OI0voZwRMJtqsZUwhGFLQnXlxO8Ur4ou7he5aPELXkJPTR9WIWQzvW0zc44zgjSIzbeoP+oo/NFsByO/ubnm4/W9QFvNRbQP3APcahRCNsJ56ROC31apO1Euq76l1N+orDJm5vaAUo0Q9vROMXDHAhn/9KeyOc4P5W2MaHprBj+B+kWe3FeZZ6lQ3g36D7WtQm4z1ZpkTA3b0SzirstiLks/wfGmxy1ZlVqZc1dDyaCOs6kuwQsm7ri2iuT/61qB14HoUF+OkWQnfZmLglVj/Kf73HuriXs0+haorgyGH0jqxi7w5NTkTn9sxjm050ZnjmUBGlT5XicB2OYVlbu2W0Q2aSGqliPZ7nPvFnoPVO2W/8bAPCFmYVMrzREs3wzV9IRDE2tD05K3rIR+cIY7eYhqgOWjn1sGrbnBkDGeRBaMdOibXWonP5Yfei1cawQ37BcbO6WIAt514Yo56xtDvSmgdLJaVnEk9gKxSr/t0JCpordAcvipNsbl4Y8tNF5S5MFdWA+O/OjAXBCTpRY6t+4QmLeMsHUcrTPgp+Q1HuWM=
+  on:
+    tags: true
