@@ -62,6 +62,7 @@ export default class {
     credentialsForm.append("password", credentials.password)
     this.post(this.authEndpoint, {body: credentialsForm})
       .then((token) => this.token = token["token"])
+      .catch((e) => { throw e })
   }
 
 }
