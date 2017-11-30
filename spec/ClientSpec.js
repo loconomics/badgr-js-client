@@ -1,6 +1,6 @@
 import jasmineHttpServerSpy from "jasmine-http-server-spy"
 
-import Client from "../lib"
+import {Client} from "../lib"
 
 describe("Client", function() {
 

@@ -1,6 +1,6 @@
 import jasmineHttpServerSpy from "jasmine-http-server-spy"
 
-import Client, {Backpack} from "../lib"
+import {Backpack, Client} from "../lib"
 
 describe("Backpack", function() {
 

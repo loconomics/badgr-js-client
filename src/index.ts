@@ -61,7 +61,7 @@ export class Backpack {
 
 }
 
-export default class Client {
+export class Client {
 
   get apiEndpoint() {
     return `${this.endpoint}/v2`
